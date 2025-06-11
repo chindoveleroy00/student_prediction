@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - ZOU Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            font-family: 'Poppins', sans-serif;
+            color: #026ba1;
+        }
+
+        .navbar {
+            background-color: #026ba1;
+            width: 100%;
+        }
+
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+        }
+
+        .navbar-nav .nav-link {
+            margin-left: 20px;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        .navbar-nav .nav-link.active,
+        .navbar-nav .nav-link:hover {
+            background-color: #fff !important;
+            color: #026ba1 !important;
+        }
+
+        .welcome-container {
+            text-align: center;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #f0f8ff;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+            color: #026ba1;
+        }
+
+        .btn-primary, .btn-secondary {
+            margin: 10px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #059bdb;
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background-color: #026ba1;
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #059bdb;
+            color: #fff;
+        }
+
+        .form-section {
+            margin-top: 30px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .chart-container {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f0f8ff;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .chart-container canvas {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">ZOU Predictor</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+           
+        </div>
+    </nav>
+
+    <!-- Welcome and Performance Summary -->
+     <!-- Welcome and Performance Summary -->
+     <section class="welcome-container mt-5 pt-5">
+        <div class="container">
+            <h2 class="text-center">Welcome, {{ student.student_name }}</h2>
+            <p class="text-center">Here is a summary of your current academic performance.</p>
+            
+            {% if student %}
+            <!-- Displaying student results in cards -->
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-8">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Performance Details</h5>
+                            <p class="card-text"><strong>Student ID:</strong> {{ student.user_id }}</p>
+                            <p class="card-text"><strong>Grades:</strong> {{ student.grades }}</p>
+                            <p class="card-text"><strong>Predicted CGPA:</strong> {{ student.predicted_cgpa }}</p>
+                            <p class="card-text"><strong>Risk Level:</strong> {{ student.risk_level }}</p>
+                        </div>
+                    </div>
+                    
+                    {% if student.intervention_plan %}
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Intervention Plan</h5>
+                            <p class="card-text"><strong>Intervention Plan:</strong> {{ student.intervention_plan }}</p>
+                            <p class="card-text"><strong>Learning Objectives:</strong> {{ student.learning_objectives }}</p>
+                            <p class="card-text"><strong>Recommended Resources:</strong> {{ student.recommended_resources }}</p>
+                            <p class="card-text"><strong>Timeline Milestones:</strong> {{ student.timeline_milestones }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% else %}
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-8">
+                    <div class="alert alert-warning text-center" role="alert">
+                        No predictions or results available for you at the moment. Predictions about you are still to be done.
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+</body>
+
+</html>

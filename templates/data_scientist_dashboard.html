@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Scientist - ZOU Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f0f8ff, #059bdb);
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+        }
+
+        .navbar {
+            background-color: #026ba1;
+            width: 100%;
+        }
+
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+        }
+
+        .navbar-nav .nav-link {
+            margin-left: 20px;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        .navbar-nav .nav-link.active,
+        .navbar-nav .nav-link:hover {
+            background-color: #fff !important;
+            color: #026ba1 !important;
+        }
+
+        .welcome-container {
+            text-align: center;
+            max-width: 800px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+        }
+
+        .btn-primary, .btn-secondary {
+            margin: 10px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #059bdb;
+            color: #fff;
+        }
+
+        .btn-secondary {
+            background-color: #fff;
+            color: #059bdb;
+        }
+
+        .btn-secondary:hover {
+            background-color: #059bdb;
+            color: #fff;
+        }
+
+        .form-section {
+            margin-top: 30px;
+        }
+
+        .form-control-file {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #555;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">ZOU Predictor</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('main.index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.dashboard') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Predictive Analytics Platform -->
+    <section class="welcome-container">
+        <h2>Welcome, {{ user.name }}</h2> <!-- Displaying the logged-in user's name -->
+
+        <!-- Predictive Form Section -->
+        <div class="form-section">
+            <h3>Predict Student Success</h3>
+            <form action="{{ url_for('main.predict_student_success') }}" method="POST">
+                <div class="mb-3">
+                    <label for="student_name" class="form-label">Student Name</label>
+                    <input type="text" class="form-control" id="student_name" name="student_name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="attendance" class="form-label">Attendance (%)</label>
+                    <input type="number" class="form-control" id="attendance" name="attendance" step="0.1" required>
+                </div>
+                <div class="mb-3">
+                    <label for="participation" class="form-label">Participation (%)</label>
+                    <input type="number" class="form-control" id="participation" name="participation" step="0.1" required>
+                </div>
+                <div class="mb-3">
+                    <label for="course_grades" class="form-label">Course Grades (A, B, C, etc.)</label>
+                    <input type="text" class="form-control" id="course_grades" name="course_grades" pattern="[A-F]{1,3}" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Predict Success</button>
+            </form>
+        </div>
+
+
+        <!-- CSV Upload Feature -->
+        <div class="form-section">
+            <h3>Upload CSV Dataset</h3>
+            <form action="{{ url_for('main.upload_csv') }}" method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <input type="file" class="form-control-file" id="csv_file" name="csv_file" accept=".csv" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>

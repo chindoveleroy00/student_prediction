@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Staff - ZOU Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f0f8ff, #059bdb);
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+        }
+        .navbar {
+            background-color: #026ba1;
+            width: 100%;
+        }
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+        }
+        .navbar-nav .nav-link {
+            margin-left: 20px;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+        .navbar-nav .nav-link.active,
+        .navbar-nav .nav-link:hover {
+            background-color: #fff !important;
+            color: #026ba1 !important;
+        }
+        .welcome-container {
+            text-align: center;
+            max-width: 600px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+        }
+        .btn-primary {
+            background-color: #fff;
+            color: #059bdb;
+            border: none;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #059bdb;
+            color: #fff;
+        }
+        .form-section {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">ZOU Predictor</a>
+        </div>
+    </nav>
+
+    <section class="container mt-5">
+        <h2>Welcome, Academic Staff</h2>
+        <h3>Predict Student GPA</h3>
+
+        <form method="POST">
+            <div class="mb-3">
+                <label for="student_name" class="form-label">Student Name</label>
+                <select id="student_name" name="student_name" class="form-select">
+                    {% for student in students %}
+                    <option value="{{ student.name }}" data-id="{{ student.id }}">{{ student.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <input type="hidden" id="user_id" name="user_id" value="{{ students[0]['id'] }}">
+
+            <div class="mb-3">
+                <label for="age" class="form-label">Age (0-100)</label>
+                <input type="number" id="age" name="age" class="form-control" min="0" max="100" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="gender" class="form-label">Student Gender</label>
+                <select id="gender" name="gender" class="form-select">
+                    <option value="Female" disabled selected>Select Gender...</option>
+
+                    <option value="Female" >Female</option>
+                    <option value="Male" >Male</option>
+
+                </select>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="attendance" class="form-label">Attendance (0-100%)</label>
+                <input type="number" id="attendance" name="attendance" class="form-control" min="0" max="100" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="participation" class="form-label">Participation (0-100%)</label>
+                <input type="number" id="participation" name="participation" class="form-control" min="0" max="100" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="course_grades" class="form-label">Course Grades (comma-separated, e.g., A,B,C)</label>
+                <input type="text" id="course_grades" name="course_grades" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Predict GPA</button>
+        </form>
+    </section>
+
+    <script>
+        // Ensure the user ID is updated based on selected student
+        document.getElementById('student_name').addEventListener('change', function() {
+            var selectedOption = this.options[this.selectedIndex];
+            document.getElementById('user_id').value = selectedOption.getAttribute('data-id');
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
