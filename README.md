@@ -36,7 +36,7 @@ The Student Success Prediction System is a machine learning-powered application 
   - Academic Staff: Submit student data, view predictions, create interventions
   - Data Analysts: Access analytical dashboards
   - Administrators: System management
-  - Students: View their own performance predictions
+  - Students: View their performance predictions
 
 ## Installation
 1. Clone the repository
@@ -61,10 +61,10 @@ The Student Success Prediction System is a machine learning-powered application 
 1. Access the web interface at `http://localhost:5000`
 2. Login with appropriate credentials (different dashboards for different roles)
 3. For academic staff:
-   - Select student from dashboard
+   - Select a student from the dashboard
    - Enter academic data (attendance, participation, course grades)
-   - Submit to view prediction and risk level
-   - Create intervention plan if needed
+   - Submit to view the prediction and risk level
+   - Create an intervention plan if needed
 4. For students:
    - View personal performance predictions
    - See recommended interventions
@@ -84,9 +84,6 @@ This system addresses critical challenges at Zimbabwe Open University by:
 - Mobile application for student access
 - Automated intervention recommendations
 - Continuous model retraining with new student data
-
-## License
-[Specify license information here]
 
 ## Acknowledgments
 Zimbabwe Open University for providing the academic context and data requirements that shaped this project's development. Special thanks to supervisor Mr. E. Thomu for guidance.
